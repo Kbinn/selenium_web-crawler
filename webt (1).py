@@ -164,7 +164,7 @@ def main():
                             break  
                 except Exception as e:
                     print(f"Error processing patient {date_case_id}: {str(e)}")
-                    driver.get("https://stwp29.cyberhood.net.tw/questionnaire/list.php")
+                    driver.get("p")
                     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//td[@onclick]")))
                     start_time = time.time()  
                     break  
