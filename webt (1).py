@@ -84,7 +84,7 @@ def process_patient(driver, initial_report_url, date_case_id, pid, quest_type, p
         try:
             record_id_script = "return current_record_id;"
             current_record_id = driver.execute_script(record_id_script)
-            new_page_url = f"https://stwp29.cyberhood.net.tw/questionnaire/detail.php?id={current_record_id}"
+            new_page_url = f"={current_record_id}"
             driver.get(new_page_url)
             if "讀取資料失敗" in driver.page_source:
                 raise Exception("讀取資料失敗")
@@ -113,11 +113,11 @@ def main():
     driver = webdriver.Chrome()
     try:
         # 登入
-        driver.get("https://stwp29.cyberhood.net.tw/questionnaire/login.php?logout=1")
+        driver.get("")
         username_field = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.NAME, 'login_id')))
         password_field = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.NAME, 'login_pw')))
-        username_field.send_keys('5234')
-        password_field.send_keys('cgmh328')
+        username_field.send_keys('')
+        password_field.send_keys('')
         submit_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.NAME, 'Submit')))
         submit_button.click()
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "mainMenu")))
@@ -155,10 +155,10 @@ def main():
                         if patient_id not in processed_patients:
                             processed_patients.add(patient_id)
                             processed_dates = set()
-                            initial_report_url = f"https://stwp29.cyberhood.net.tw/questionnaire/report.php?pid={pid}&quest={quest_type}&id={date_case_id}"
+                            initial_report_url = f"={pid}&quest={quest_type}&id={date_case_id}"
                             process_patient(driver, initial_report_url, date_case_id, pid, quest_type, processed_dates)
                             
-                            driver.get("https://stwp29.cyberhood.net.tw/questionnaire/list.php")
+                            driver.get("")
                             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//td[@onclick]")))
                             start_time = time.time()  
                             break  
