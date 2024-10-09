@@ -135,7 +135,7 @@ def main():
 
         while True:
             if time.time() - start_time > 120:  # 檢查是否超過兩分鐘
-                print("程序停留在同一頁面超過兩分鐘，自動退出")
+                print("城市停留在同一頁面超過兩分鐘，自動退出")
                 break
 
             elements = driver.find_elements(By.XPATH, "//td[@onclick]")
